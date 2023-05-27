@@ -1,0 +1,16 @@
+/**
+ * File Name: mystyle.css
+ *
+ * Revision History:
+ *       Nehal Dogra, 2022-02-18 : Created
+ */
+label.error {
+    color: #F00;
+    font-weight: bold;
+}
+
+input.error,
+select.error,
+textarea.error {
+    border: 1px red solid;
+}

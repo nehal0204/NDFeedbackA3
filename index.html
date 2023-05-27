@@ -1,0 +1,265 @@
+<!--
+Mobile web development
+Template for general purpose html5 page with JQuery
+ Mobile
+Created by: Nehal Dogra
+email: ndogra7004@conestogac.on.ca
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>NDFeedbackA3</title>
+    <!--jquery-->
+    <script src="js/lib/jquery-2.1.4.js"></script>
+    <!--jquery mobile-->
+    <script src="js/lib/jquery.mobile-1.4.5.js"></script>
+    <!--jquery validate-->
+    <script src="js/lib/jquery.validate.js"></script>
+    <!--jquery mobile styles-->
+    <link rel="stylesheet" href="css/lib/jquery.mobile-1.4.5.css">
+    <!--our stuff-->
+    <script src="js/nddatabase.js"></script>
+    <script src="js/ndDAL.js"></script>
+    <script src="js/ndutil.js"></script>
+    <script src="js/ndfacade.js"></script>
+    <script src="js/ndglobal.js"></script>
+    <link rel="stylesheet" href="css/mystyle.css">
+</head>
+<body>
+<!--home page-->
+<div data-role="page" id="ndHomePage">
+    <header data-role="header" data-position="fixed" data-theme="a">
+        <h1>ND Feedback A3</h1>
+        <div data-role="navbar" data-iconpos="top">
+            <ul>
+                <li><a href="#ndHomePage" data-icon="home" class="ui-btn-active ui-state-persist" data-transition="pop">Home</a>
+                </li>
+                <li><a href="#ndAddFeedbackPage" data-icon="plus" data-transition="pop">Add</a></li>
+                <li><a href="#ndViewFeedbackPage" data-icon="grid" data-transition="pop">Reviews</a></li>
+                <li><a href="#ndSettingsPage" data-icon="gear" data-transition="pop">Settings</a></li>
+            </ul>
+        </div>
+    </header>
+    <section data-role="content">
+        <h1>Nehal Dogra's Feedback A3 App</h1>
+        <p>Welcome to the Nehal Dogra's Feedback A3 app. A prototype designed for mobile programming class. This is the
+            first iteration of the app to keep track of different places you visited along with your reviews.</p>
+        <div>
+            <img src="img/ND-image.png" alt="" style="width:100%; height:auto ">
+        </div>
+        <p>Please feel free to contact me if you have any suggestions!</p>
+        <a href="#" data-role="button" data-icon="plus">Call: 519.748.5220</a>
+        <a href="#" data-role="button" data-icon="plus">ndogra7004@conestogac.on.ca</a>
+        <p>Website:</p>
+        <a href="#" data-role="button" data-icon="plus">Conestoga College</a>
+    </section>
+    <footer data-role="footer" data-position="fixed" data-theme="a">
+        <h1>&copy; 2022 Nehal Dogra</h1>
+    </footer>
+</div>
+
+<!--Add Feedback Page-->
+<div data-role="page" id="ndAddFeedbackPage">
+    <header data-role="header" data-position="fixed" data-theme="a">
+        <h1>Add a Feedback</h1>
+        <div data-role="navbar" data-iconpos="top">
+            <ul>
+                <li><a href="#ndHomePage" data-icon="home" data-transition="pop">Home</a></li>
+                <li><a href="#ndAddFeedbackPage" data-icon="plus" class="ui-btn-active ui-state-persist"
+                       data-transition="pop">Add</a></li>
+                <li><a href="#ndViewFeedbackPage" data-icon="grid" data-transition="pop">Reviews</a></li>
+                <li><a href="#ndSettingsPage" data-icon="gear" data-transition="pop">Settings</a></li>
+            </ul>
+        </div>
+    </header>
+    <section data-role="content">
+        <form id="frmAdd" name="frmAdd">
+            <label for="BStextAdd">Business Name: </label>
+            <input type="text" id="BStextAdd" name="BStextAdd">
+
+            <label for="cmbAdd">Type:</label>
+            <select name="cmbAdd" id="cmbAdd">
+            </select>
+
+            <label for="REmailAdd">Reviewer Email: </label>
+            <input type="text" id="REmailAdd" name="REmailAdd">
+
+            <label for="RcommAdd">Reviewer Comments: </label>
+            <textarea name="RcommAdd" id="RcommAdd" cols="30" rows="10"></textarea>
+
+            <label for="dateAdd">Review Date:</label>
+            <input type="date" id="dateAdd" name="dateAdd">
+
+            <input type="checkbox" id="ratingsAdd" name="ratingsAdd">
+            <label for="ratingsAdd">Do you want to add your ratings?</label>
+
+            <div id="calculateAdd" style="display: none">
+                <label for="FQAdd">Food Quality (0-5): </label>
+                <input type="number" id="FQAdd" name="FQAdd" value="0">
+
+                <label for="SvcAdd">Service (0-5): </label>
+                <input type="number" id="SvcAdd" name="SvcAdd" value="0">
+
+                <label for="ValueAdd">Value (0-5): </label>
+                <input type="number" id="ValueAdd" name="ValueAdd" value="0">
+
+                <label for="ORatingsAdd">Overall Rating (calculated):</label>
+                <input type="text" id="ORatingsAdd" name="ORatingsAdd" readonly>
+            </div>
+
+
+            <button type="button" id="saveAdd" name="saveAdd" data-inline="true" class="ui-btn-active">Save</button>
+
+        </form>
+    </section>
+    <footer data-role="footer" data-position="fixed" data-theme="a">
+        <h1>&copy; 2022 Nehal Dogra</h1>
+    </footer>
+</div>
+
+<!--View Feedback Page-->
+<div data-role="page" id="ndViewFeedbackPage">
+    <header data-role="header" data-position="fixed" data-theme="a">
+        <h1>List of Reviews</h1>
+        <div data-role="navbar" data-iconpos="top">
+            <ul>
+                <li><a href="#ndHomePage" data-icon="home" data-transition="pop">Home</a></li>
+                <li><a href="#ndAddFeedbackPage" data-icon="plus" data-transition="pop">Add</a></li>
+                <li><a href="#ndViewFeedbackPage" data-icon="grid" class="ui-btn-active ui-state-persist"
+                       data-transition="pop">Reviews</a>
+                </li>
+                <li><a href="#ndSettingsPage" data-icon="gear" data-transition="pop">Settings</a></li>
+            </ul>
+        </div>
+    </header>
+    <section data-role="content">
+        <ul data-role="listview" id="lstviewFeedback" class="ui-listview-inset">
+            <li>
+                <a href="#ndModifyFeedbackPage" class="ui-btn">
+                    <h2>Business Name: My Fruit-Splash Shop</h2>
+                    <p>
+                        Reviewer: nd@spy.com <br>
+                        Comments: Good Fruit-Splash! <br>
+                        Overall Rating: 90%
+                    </p>
+                </a>
+            </li>
+            <li>
+                <a href="#ndModifyFeedbackPage" class="ui-btn">
+                    <h2>Business Name: My Pizza Shop</h2>
+                    <p>
+                        Reviewer: nd@spy.com <br>
+                        Comments: Good Pizza! <br>
+                        Overall Rating: 100%
+                    </p>
+                </a>
+            </li>
+
+
+        </ul>
+    </section>
+    <footer data-role="footer" data-position="fixed" data-theme="a">
+        <h1>&copy; 2022 Nehal Dogra</h1>
+    </footer>
+</div>
+
+<!--Modify Feedback Page-->
+<div data-role="page" id="ndModifyFeedbackPage">
+    <header data-role="header" data-position="fixed" data-theme="a">
+        <h1>Modify Feedback</h1>
+        <div data-role="navbar" data-iconpos="top">
+            <ul>
+                <li><a href="#ndHomePage" data-icon="home" data-transition="pop">Home</a></li>
+                <li><a href="#ndAddFeedbackPage" data-icon="plus" data-transition="pop">Add</a></li>
+                <li><a href="#ndViewFeedbackPage" data-icon="grid" class="ui-btn-active ui-state-persist"
+                       data-transition="pop">Reviews</a>
+                </li>
+                <li><a href="#ndSettingsPage" data-icon="gear" data-transition="pop">Settings</a></li>
+            </ul>
+        </div>
+    </header>
+    <section data-role="content">
+        <form id="frmModify" name="frmModify">
+
+            <div hidden>
+                <label for="txtId">ID</label>
+                <input type="text" id="txtId" name="txtId" data-clear-btn="true">
+            </div>
+
+            <label for="BStextModify">Business Name: </label>
+            <input type="text" id="BStextModify" name="BStextModify">
+
+            <label for="cmbModify">Type:</label>
+            <select name="cmbModify" id="cmbModify">
+            </select>
+
+            <label for="REmailModify">Reviewer Email: </label>
+            <input type="text" id="REmailModify" name="REmailModify">
+
+            <label for="RcommModify">Reviewer Comments: </label>
+            <textarea name="RcommModify" id="RcommModify" cols="30" rows="10"></textarea>
+
+            <label for="dateModify">Review Date:</label>
+            <input type="date" id="dateModify" name="dateModify">
+
+            <input type="checkbox" id="ratingsModify" name="ratingsModify">
+            <label for="ratingsModify">Do you want to add your ratings?</label>
+
+            <div id="calculateModify" style="display: none">
+                <label for="FQModify">Food Quality (0-5): </label>
+                <input type="number" id="FQModify" name="FQModify" value="0">
+
+                <label for="SvcModify">Service (0-5): </label>
+                <input type="number" id="SvcModify" name="SvcModify" value="0">
+
+                <label for="ValueModify">Value (0-5): </label>
+                <input type="number" id="ValueModify" name="ValueModify" value="0">
+
+                <label for="ORatingsModify">Overall Rating (calculated):</label>
+                <input type="text" id="ORatingsModify" name="ORatingsModify" value="0" readonly>
+            </div>
+            <div data-role="controlgroup" data-type="horizontal">
+                <button type="button" id="cancelmodify" name="cancelmodify" data-inline="true">Cancel</button>
+                <button type="button" id="deletemodify" name="deletemodify" data-inline="true" data-theme="b">Delete
+                </button>
+                <button type="button" id="updatemodify" name="updatemodify" data-inline="true" class="ui-btn-active">
+                    Update
+                </button>
+            </div>
+        </form>
+    </section>
+    <footer data-role="footer" data-position="fixed" data-theme="a">
+        <h1>&copy; 2022 Nehal Dogra</h1>
+    </footer>
+</div>
+
+<!--Settings Page-->
+<div data-role="page" id="ndSettingsPage">
+    <header data-role="header" data-position="fixed" data-theme="a">
+        <h1>Settings</h1>
+        <div data-role="navbar" data-iconpos="top">
+            <ul>
+                <li><a href="#ndHomePage" data-icon="home" data-transition="pop">Home</a></li>
+                <li><a href="#ndAddFeedbackPage" data-icon="plus" data-transition="pop">Add</a></li>
+                <li><a href="#ndViewFeedbackPage" data-icon="grid" data-transition="pop">Reviews</a></li>
+                <li><a href="#ndSettingsPage" data-icon="gear" class="ui-btn-active ui-state-persist"
+                       data-transition="pop">Settings</a></li>
+            </ul>
+        </div>
+    </header>
+    <section data-role="content">
+        <form id="settingsfrm" name="settingsfrm">
+            <label for="DefaultEmail">Default reviewer Email: </label>
+            <input type="text" id="DefaultEmail" name="DefaultEmail" value="ndogra7004@conestogac.on.ca">
+
+            <button type="button" id="savesettings" name="savesettings" class="ui-btn-active">Save Defaults</button>
+            <button type="button" id="clearDB" name="clearDB" data-theme="b">Clear Database</button>
+        </form>
+    </section>
+    <footer data-role="footer" data-position="fixed" data-theme="a">
+        <h1>&copy; 2022 Nehal Dogra</h1>
+    </footer>
+</div>
+</body>
+</html>
